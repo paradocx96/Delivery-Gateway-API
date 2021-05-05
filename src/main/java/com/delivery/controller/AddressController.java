@@ -1,31 +1,50 @@
 package com.delivery.controller;
 
 import com.delivery.model.Address;
-import com.delivery.repo.AddressRepo;
+import com.delivery.service.AddressService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/address")
 public class AddressController {
 
     @Autowired
-    AddressRepo repo;
+    AddressService service;    
 
-    public void createUpdate(Address address) {
-        repo.save(address);
+    @PostMapping
+    public Address createUpdateAddress(@RequestBody Address address) {
+    	return service.saveAddress(address);
     }
 
+    @GetMapping
     public List<Address> getAllAddress() {
-        return (List<Address>) repo.findAll();
+        return service.findAllAddress();
     }
 
-    public void deleteAddressById(int id) {
-        repo.deleteById(id);
+    @GetMapping("/{id}")
+    public Address getAddressById(@PathVariable("id") int id) {
+        return service.getAddressId(id);
     }
-
-    public Address getAddressById(int id) {
-        return repo.findById(id).get();
+        
+    @PutMapping("/{id}")
+    public Address updateAddressById(@RequestBody Address address, @PathVariable("id") int id) {    	
+    	return service.updateAddressId(address, id);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Address> deleteAddressById(@PathVariable("id") int id) {
+    	return service.deleteAddressId(id);
     }
 }

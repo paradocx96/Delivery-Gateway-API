@@ -27,8 +27,22 @@ public class Address {
 
     @Column(name = "phone")
     private String phone;
+    
+    public Address() {
+		super();
+	}
 
-    public int getId() {
+	public Address(String title, String addresss, String province, String district, String city, String phone) {
+		super();
+		this.title = title;
+		this.addresss = addresss;
+		this.province = province;
+		this.district = district;
+		this.city = city;
+		this.phone = phone;
+	}
+
+	public int getId() {
         return id;
     }
 

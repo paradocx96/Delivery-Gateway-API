@@ -1,32 +1,51 @@
 package com.delivery.controller;
 
 import com.delivery.model.PostMan;
-import com.delivery.repo.PostManRepo;
+import com.delivery.service.PostManService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api/postman")
 public class PostManController {
 
     @Autowired
-    PostManRepo repo;
+    PostManService service;
 
-    public void createUpdatePostMan(PostMan postMan) {
-        repo.save(postMan);
+    @PostMapping
+    public PostMan createUpdatePostMan(@RequestBody PostMan pm) {
+    	return service.savePostMan(pm);
     }
 
+    @GetMapping
     public List<PostMan> getAllPostMan() {
-        return (List<PostMan>) repo.findAll();
+        return service.findAllPostMan();
     }
 
-    public void deletePostManById(int id) {
-        repo.deleteById(id);
+    @GetMapping("/{id}")
+    public PostMan getPostManById(@PathVariable("id") int id) {
+        return service.getPostManId(id);
     }
-
-    public PostMan getPostManById(int id) {
-        return repo.findById(id).get();
+        
+    @PutMapping("/{id}")
+    public PostMan updatePostManById(@RequestBody PostMan pm, @PathVariable("id") int id) {    	
+    	return service.updatePostManId(pm, id);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PostMan> deletePostManById(@PathVariable("id") int id) {
+    	return service.deletePostManId(id);
     }
 
 }

@@ -28,7 +28,21 @@ public class PostMan {
     @Column(name = "status")
     private String status;
 
-    public int getId() {
+    public PostMan() {
+		super();
+	}
+
+	public PostMan(int orderid, String address, String date, double price, String type, String status) {
+		super();
+		this.orderid = orderid;
+		this.address = address;
+		this.date = date;
+		this.price = price;
+		this.type = type;
+		this.status = status;
+	}
+
+	public int getId() {
         return id;
     }
 
