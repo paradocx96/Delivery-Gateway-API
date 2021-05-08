@@ -10,6 +10,9 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "userid")
+    private int userid;
+
     @Column(name = "title")
     private String title;
 
@@ -25,6 +28,9 @@ public class Address {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "zip")
+    private String zip;
+
     @Column(name = "phone")
     private String phone;
     
@@ -32,13 +38,16 @@ public class Address {
 		super();
 	}
 
-	public Address(String title, String addresss, String province, String district, String city, String phone) {
+	public Address(int userid, String title, String addresss, String province, String district, String city,
+			String zip, String phone) {
 		super();
+		this.userid = userid;
 		this.title = title;
 		this.addresss = addresss;
 		this.province = province;
 		this.district = district;
 		this.city = city;
+		this.zip = zip;
 		this.phone = phone;
 	}
 
@@ -97,4 +106,20 @@ public class Address {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 }

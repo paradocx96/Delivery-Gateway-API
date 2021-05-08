@@ -28,6 +28,10 @@ public class AddressService {
 		return addressRepo.findById(id).orElseThrow(()-> new NotFoundException("Address Not Found ID : " + id));
 	}
 	
+	public List<Address> getAddressUid(int userid) {
+		return addressRepo.findByByUserid(userid);
+	}
+	
 	public Address updateAddressId(Address address, int id) {
 		Address exist = addressRepo.findById(id).orElseThrow(() -> new NotFoundException("Address Not Found ID :" + id));
     	exist.setAddresss(address.getAddresss());
@@ -36,6 +40,7 @@ public class AddressService {
     	exist.setCity(address.getCity());
     	exist.setPhone(address.getPhone());
     	exist.setTitle(address.getTitle());
+    	exist.setZip(address.getZip());
 		return addressRepo.save(exist);
 	}
 	
